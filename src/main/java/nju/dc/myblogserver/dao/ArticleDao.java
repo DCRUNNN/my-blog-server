@@ -13,6 +13,9 @@ public interface ArticleDao {
 
     ArticlePO getArticleContent(String date);
 
+    int deleteArticle(String date);
+
+    int updateArticle(String date, ArticlePO articlePO);
 
 
 }

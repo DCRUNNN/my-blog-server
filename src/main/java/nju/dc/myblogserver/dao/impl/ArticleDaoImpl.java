@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +45,41 @@ public class ArticleDaoImpl implements ArticleDao {
 
         //如果包括0则这两条插入语句至少有一句不成功，success为false
         boolean success = !Arrays.asList(check).contains(0);
+        //成功的话返回1
+        return success ? 1 : 0;
+    }
+
+    @Override
+    public int deleteArticle(String date) {
+        String sql = "delete from article_Info where date=" + '"' + date + '"';
+        String sql2 = "delete from article where date=" + '"' + date + '"';
+
+        String[] sqls = new String[2];
+        sqls[0] = sql;
+        sqls[1] = sql2;
+
+        int[] check = jdbcTemplate.batchUpdate(sqls);
+
+        //如果包括0则这两条插入语句至少有一句不成功，success为false
+        boolean success = !Arrays.asList(check).contains(0);
+        //成功的话返回1
+        return success ? 1 : 0;
+    }
+
+    @Override
+    public int updateArticle(String date, ArticlePO articlePO) {
+        String sql = "update article_Info set title =" + '"' + articlePO.getTitle() + '"' + "," + "date=" + '"' + articlePO.getDate() + '"' + " where date=" + '"' + date + '"';
+        String sql2 = "update article set date=" + '"' + articlePO.getDate() + '"' + "," + "content=" + '"' + articlePO.getContent() + '"' + " where date=" + '"' + date + '"';
+
+        String[] sqls = new String[2];
+        sqls[0] = sql;
+        sqls[1] = sql2;
+
+        int[] check = jdbcTemplate.batchUpdate(sqls);
+
+        //如果包括0则这两条插入语句至少有一句不成功，success为false
+        boolean success = !Arrays.asList(check).contains(0);
+        //成功的话返回1
         return success ? 1 : 0;
     }
 
@@ -51,7 +87,8 @@ public class ArticleDaoImpl implements ArticleDao {
     public List<ArticlePO> getArticleInfo() {
 
         String sql = "select * from article_Info";
-        return jdbcTemplate.query(sql, getArticleInfoMapper());
+        List<ArticlePO> list = jdbcTemplate.query(sql, getArticleInfoMapper());
+        return list.size() == 0 ? new ArrayList<>() : list;
     }
 
 
