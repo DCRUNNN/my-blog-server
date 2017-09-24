@@ -69,7 +69,7 @@ public class ArticleDaoImpl implements ArticleDao {
     @Override
     public int updateArticle(String date, ArticlePO articlePO) {
         String sql = "update article_Info set title =" + '"' + articlePO.getTitle() + '"' + "," + "date=" + '"' + articlePO.getDate() + '"' + " where date=" + '"' + date + '"';
-        String sql2 = "update article set date=" + '"' + articlePO.getDate() + '"' + "," + "content=" + '"' + articlePO.getContent() + '"' + " where date=" + '"' + date + '"';
+        String sql2 = "update article set date=" + '"' + articlePO.getDate() + '"' + "," + "content=" + "'" + articlePO.getContent() + "'" + " where date=" + '"' + date + '"';
 
         String[] sqls = new String[2];
         sqls[0] = sql;

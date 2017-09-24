@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,24 +35,25 @@ public class ArticleController {
         return new BaseResult(-1, "fail to save article!");
     }
 
-    @PutMapping("/updateArticle")
+    @PostMapping("/updateArticle")
     public BaseResult updateArticle(@RequestBody ArticlePO articlePO) {
+
+        String oldDate = articlePO.getDate();
 
         String newDate = articleDaoUtils.setCreateDate();
         articlePO.setDate(newDate);
 
-        int success = articleDao.updateArticle(newDate, articlePO);
+        int success = articleDao.updateArticle(oldDate, articlePO);
 
         if (success == 1) {
-            return new BaseResult(0,"update article successfully!");
+            return new BaseResult(0, "update article successfully!");
         }
         return new BaseResult(-1, "fail to update article!");
     }
 
-    @DeleteMapping("/deteleArticle")
-    public BaseResult deleteArticle(@RequestBody String date) {
-
-        System.out.println(date);
+    //改为getmapping可删除成功，deletemapping不成功，为什么呢？
+    @GetMapping("/deteleArticle")
+    public BaseResult deleteArticle(@RequestParam String date) {
 
         int success = articleDao.deleteArticle(date);
 

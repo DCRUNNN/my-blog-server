@@ -50,4 +50,15 @@ public class ArticleDaoImplTest {
         System.out.println(po.toString());
     }
 
+    @Test
+    public void updateArticle() throws Exception {
+        String oldDate = "2017-09-24 13:24:23";
+        ArticlePO po = new ArticlePO();
+        po.setDate(articleDaoUtils.setCreateDate());
+        po.setContent("测试修改内容");
+        po.setTitle("测试修改标题");
+        po.setArticleID("");
+        System.out.println(articleDao.updateArticle(oldDate, po));
+    }
+
 }
