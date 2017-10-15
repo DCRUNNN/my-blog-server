@@ -42,9 +42,9 @@ public class PhotoDaoImpl implements PhotoDao {
     @Override
     public int createAlbum(AlbumPO albumPO) {
 
-        String sql = "insert into album(albumName,albumDescription,createDate) values "
+        String sql = "insert into album(albumName,albumDescription,createDate,coverSrc) values "
                 + "("
-                + '"' + albumPO.getAlbumName() + '"' + "," + '"' + albumPO.getAlbumDescription() + '"' + "," + '"' + albumPO.getCreateDate() + '"'
+                + '"' + albumPO.getAlbumName() + '"' + "," + '"' + albumPO.getAlbumDescription() + '"' + "," + '"' + albumPO.getCreateDate() + '"'+","+'"'+albumPO.getCoverSrc()+'"'
                 + ")";
 
         return jdbcTemplate.update(sql);
@@ -65,4 +65,32 @@ public class PhotoDaoImpl implements PhotoDao {
         };
     }
 
+    @Override
+    public List<AlbumPO> getAllAlbums() {
+
+        String sql = "select * from album";
+
+        List<AlbumPO> albumPOList = jdbcTemplate.query(sql, getAlbumMapper());
+
+        return albumPOList.size() == 0 ? new ArrayList<>() : albumPOList;
+
+    }
+
+    private RowMapper<AlbumPO> getAlbumMapper() {
+        return (resultSet, i) -> {
+            AlbumPO po = new AlbumPO();
+            po.setAlbumName(resultSet.getString("albumName"));
+            po.setAlbumDescription(resultSet.getString("albumDescription"));
+            String date = resultSet.getString("createDate");
+            po.setCreateDate(date.substring(0, date.length() - 11));
+            po.setCoverSrc(resultSet.getString("coverSrc"));
+            return po;
+        };
+    }
+
+    @Override
+    public int setAlbumCover(String albumName, String coverSrc) {
+        String sql = "";
+        return 0;
+    }
 }

@@ -13,4 +13,9 @@ public interface PhotoDao {
 
     int createAlbum(AlbumPO albumPO);
 
+    List<AlbumPO> getAllAlbums();
+
+    int setAlbumCover(String albumName, String coverSrc);
+
+
 }

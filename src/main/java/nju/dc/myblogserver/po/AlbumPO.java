@@ -8,15 +8,17 @@ public class AlbumPO {
     private String createDate;
     private List<PhotoPO> photoPOList;
     private String albumDescription;
+    private String coverSrc;
 
     public AlbumPO() {
     }
 
-    public AlbumPO(String albumName, String createDate, List<PhotoPO> photoPOList, String albumDescription) {
+    public AlbumPO(String albumName, String createDate, List<PhotoPO> photoPOList, String albumDescription, String coverSrc) {
         this.albumName = albumName;
         this.createDate = createDate;
         this.photoPOList = photoPOList;
         this.albumDescription = albumDescription;
+        this.coverSrc = coverSrc;
     }
 
     public String getAlbumName() {
@@ -51,6 +53,14 @@ public class AlbumPO {
         this.albumDescription = albumDescription;
     }
 
+    public String getCoverSrc() {
+        return coverSrc;
+    }
+
+    public void setCoverSrc(String coverSrc) {
+        this.coverSrc = coverSrc;
+    }
+
     @Override
     public String toString() {
         return "AlbumPO{" +
@@ -58,6 +68,7 @@ public class AlbumPO {
                 ", createDate='" + createDate + '\'' +
                 ", photoPOList=" + photoPOList +
                 ", albumDescription='" + albumDescription + '\'' +
+                ", coverSrc='" + coverSrc + '\'' +
                 '}';
     }
 }

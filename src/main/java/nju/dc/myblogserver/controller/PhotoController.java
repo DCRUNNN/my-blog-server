@@ -53,4 +53,12 @@ public class PhotoController {
 
         return new BaseResult<>(0, list);
     }
+
+    @GetMapping("getAllAlbums")
+    public BaseResult getAllAlbums(){
+
+        List<AlbumPO> list = photoDao.getAllAlbums();
+
+        return new BaseResult<>(0, list);
+    }
 }
