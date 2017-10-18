@@ -58,7 +58,7 @@ public class PhotoDaoImpl implements PhotoDao {
             po.setPhotoName(resultSet.getString("photoName"));
             po.setPhotoSrc(resultSet.getString("photoSrc"));
             po.setAlbumName(resultSet.getString("albumName"));
-            String date = resultSet.getString("date");
+            String date = resultSet.getString("uploadDate");
             po.setUploadDate(date.substring(0, date.length() - 2));
             po.setPhotoDescription(resultSet.getString("photoDescription"));
             return po;
